@@ -1,6 +1,4 @@
-<div style="text-align: center;">
-    <span style="font-size: xxx-large">网易云音乐 音乐合伙人脚本</span>
-</div>
+# 网易云音乐 音乐合伙人脚本
 
 ## 🔥 功能
 
