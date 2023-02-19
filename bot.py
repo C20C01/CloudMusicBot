@@ -170,9 +170,7 @@ class Context:
 
 if __name__ == "__main__":
     myContext = Context()
-    myLog = DingLog("")  # 将结果打印到屏幕
-    # myLog = DingLog("ignore") 不输出结果
-    # myLog = DingLog(myContext.getUserData("BOT_URL")) 将结果发送到钉钉
+    myLog = DingLog(myContext.getUserData("BOT_URL"))  # 使用文档内的参数
     if Bot(myContext, myLog).run():
         myLog.end("🟢 任务成功")
     else:
