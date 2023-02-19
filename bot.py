@@ -63,7 +63,7 @@ class Bot:
     def __sign(self, taskData):
         self.log.info("开始评分...")
         signer = Signer(self.session, taskData["id"], self.log)
-        for task in taskData["works"][0:1]:
+        for task in taskData["works"]:
             work = task["work"]
             if task["completed"]:
                 self.log.info(f'{work["name"]} ({work["authorName"]}) 已有评分：{int(task["score"])}分')
