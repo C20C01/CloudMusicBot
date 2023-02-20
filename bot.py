@@ -148,7 +148,7 @@ def handler(event, context):
     if Bot(context, log).run():
         log.end("🟢 任务成功")
     else:
-        log.end("🔴 任务失败")
+        log.end("🔴 任务失败", True)
 
 
 # 以下是本地使用时的代码
@@ -168,4 +168,4 @@ if __name__ == "__main__":
     if Bot(myContext, myLog).run():
         myLog.end("🟢 任务成功")
     else:
-        myLog.end("🔴 任务失败")
+        myLog.end("🔴 任务失败", True)

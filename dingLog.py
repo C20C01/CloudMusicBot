@@ -12,7 +12,7 @@ class DingLog:
         self.msg += "\n= = = = = = = = = = = = = = = = = ="
         self.url = url
 
-    def end(self, msg: str):
+    def end(self, msg: str, atAll=False):
         headers = {
             "Content-Type": "application/json"
         }
@@ -23,7 +23,10 @@ class DingLog:
         elif self.url == "":
             print(self.msg)
         else:
-            data = ('{"msgtype":"text","text":{"content":"%s"}}' % self.msg).encode('utf-8')
+            data = {"msgtype": "text", "text": {"content": self.msg}}
+            if atAll:
+                data["at"] = {"isAtAll": "true"}
+            data = str(data).encode("utf-8")
             requests.session().post(url=self.url, headers=headers, data=data)
 
     def info(self, msg: str):
