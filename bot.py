@@ -77,6 +77,18 @@ def addTo16(data: str):
     return str.encode(data)
 
 
+#  从前几周的结果来看,貌似沾点字母的差不多都是四星?
+def getScoreAndTag(work):
+    star = 3
+    text: str = work["name"] + work["authorName"]
+    for c in text:
+        if c.isascii():
+            star = 4
+            break
+    star = str(star)
+    return star, star + "-A-1"
+
+
 class Signer:
     def __init__(self, session: requests.Session, taskID, log):
         self.signUrl = "https://interface.music.163.com/weapi/music/partner/work/evaluate?csrf_token="
@@ -92,20 +104,6 @@ class Signer:
         self.session = session
         self.taskID = taskID
         self.log = log
-
-    # noinspection PyBroadException
-    def __getScoreAndTag(self, work):
-        musicID = str(work["resourceId"])
-        musicInfoUrl = f"https://music.163.com/api/song/detail/?id={musicID}&ids=[{musicID}]"
-        star = 3
-        try:
-            if int(self.session.get(url=musicInfoUrl).json()["songs"][0]["score"]) > 55:
-                # 上面的分数与星级关联度不高(比较鸡肋的功能,可自行删除)
-                star = 4
-        except Exception:
-            pass
-        star = str(star)
-        return star, star + "-A-1"
 
     def __getAesEncrypt(self, data: str, key: str):
         bs = AES.block_size
@@ -126,7 +124,7 @@ class Signer:
     def sign(self, work):
         try:
             csrf = str(self.session.cookies["__csrf"])
-            score, tag = self.__getScoreAndTag(work)
+            score, tag = getScoreAndTag(work)
             data = {
                 "params": self.__getParams({
                     "taskId": self.taskID,
