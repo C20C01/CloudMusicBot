@@ -13,9 +13,7 @@ class DingLog:
         self.url = url
 
     def end(self, msg: str, atAll=False):
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
         self.msg += "\n= = = = = = = = = = = = = = = = = ="
         self.info(msg)
         if self.url is None or self.url == "ignore":

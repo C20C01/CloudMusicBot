@@ -36,13 +36,16 @@ class Bot:
         return True
 
     def __loadCookie(self):
+        flag = False
         for key in ["MUSIC_U", "__csrf"]:
             cookie = self.context.getUserData("Cookie_" + key)
             if cookie:
                 self.session.cookies.set(key, cookie)
             else:
                 self.log.info(f"未填写cookie「{key}」")
-                raise RuntimeError
+                flag = True
+        if flag:
+            raise RuntimeError
 
     def __getUserName(self):
         profile = self.session.get(url=self.userInfoUrl).json()["profile"]
@@ -146,9 +149,9 @@ class Signer:
 def handler(event, context):
     log = DingLog(context.getUserData("BOT_URL"))
     if Bot(context, log).run():
-        log.end("🟢 任务成功")
+        log.end("✅ 任务成功")
     else:
-        log.end("🔴 任务失败", True)
+        log.end("❌ 任务失败", True)
 
 
 # 以下是本地使用时的代码
@@ -166,6 +169,6 @@ if __name__ == "__main__":
     myContext = Context()
     myLog = DingLog(myContext.getUserData("BOT_URL"))  # 使用文档内的参数
     if Bot(myContext, myLog).run():
-        myLog.end("🟢 任务成功")
+        myLog.end("✅ 任务成功")
     else:
-        myLog.end("🔴 任务失败", True)
+        myLog.end("❌ 任务失败", True)
