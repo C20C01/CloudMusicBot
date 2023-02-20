@@ -67,7 +67,7 @@ class Bot:
         for task in taskData["works"]:
             work = task["work"]
             if task["completed"]:
-                self.log.info(f'{work["name"]} ({work["authorName"]}) 已有评分：{int(task["score"])}分')
+                self.log.info(f'{work["name"]}「{work["authorName"]}」已有评分：{int(task["score"])}分')
             else:
                 signer.sign(work)
 
@@ -136,9 +136,9 @@ class Signer:
             }
             response = self.session.post(url=f'{self.signUrl}={csrf}', data=data).json()
             if response["code"] == 200:
-                self.log.info(f'{work["name"]} ({work["authorName"]}) 评分完成：{score}分')
+                self.log.info(f'{work["name"]}「{work["authorName"]}」评分完成：{score}分')
         except Exception as e:
-            self.log.info(f'歌曲「{work["name"]}」评分异常,原因{str(e)}')
+            self.log.info(f'歌曲「{work["name"]}」评分异常：{str(e)}')
             raise RuntimeError
 
 
