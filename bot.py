@@ -4,6 +4,7 @@
 import base64
 import codecs
 import random
+import re
 import string
 from typing import Callable, Any
 
@@ -77,18 +78,6 @@ def addTo16(data: str):
     return str.encode(data)
 
 
-#  从前几周的结果来看,貌似沾点字母的差不多都是四星?
-def getScoreAndTag(work):
-    star = 3
-    text: str = work["name"] + work["authorName"]
-    for c in text:
-        if c.isascii():
-            star = 4
-            break
-    star = str(star)
-    return star, star + "-A-1"
-
-
 class Signer:
     def __init__(self, session: requests.Session, taskID, log):
         self.signUrl = "https://interface.music.163.com/weapi/music/partner/work/evaluate?csrf_token="
@@ -101,9 +90,16 @@ class Signer:
         self.iv = "0102030405060708"  # 偏移量
         self.aesKey = '0CoJUm6Qyw8W8jud'  # buU9L(["爱心", "女孩", "惊恐", "大笑"])的值
 
+        self.pattern = re.compile('.*[a-zA-Z].*')
         self.session = session
         self.taskID = taskID
         self.log = log
+
+    def __getScoreAndTag(self, work) -> [str, str]:
+        star = "3"
+        if self.pattern.match(work["name"] + work["authorName"]):
+            star = "4"
+        return star, star + "-A-1"
 
     def __getAesEncrypt(self, data: str, key: str):
         bs = AES.block_size
@@ -124,7 +120,7 @@ class Signer:
     def sign(self, work):
         try:
             csrf = str(self.session.cookies["__csrf"])
-            score, tag = getScoreAndTag(work)
+            score, tag = self.__getScoreAndTag(work)
             data = {
                 "params": self.__getParams({
                     "taskId": self.taskID,
