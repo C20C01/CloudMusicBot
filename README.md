@@ -18,10 +18,12 @@
 
 ### ☁ [华为云函数](https://console.huaweicloud.com/functiongraph)运行
 
+⚠ 请留意免费额度，以免产生不必要的支出！
+
 1. 下载 "CloudMusicBot.zip", "Crypto_SCF_Layer_Python3.6.zip" (在"**云函数压缩包**"文件夹内)
 2. 新建云函数(版本选择**Python 3.6**)，将 "CloudMusicBot.zip" 上传为函数代码
 3. 将函数执行入口设为 "**bot.handler**"
-4. 执行超时时间延长至15秒 (为保险起见可适当延长)
+4. 执行超时时间延长至60秒 (为保险起见可适当延长)
 5. 填写环境变量，[参数说明](#-参数说明)
 6. 将 "Crypto_SCF_Layer_Python3.6.zip" 上传为依赖包，**并在代码依赖包中添加**
 7. 添加触发器，这里以每天中午12点运行一次为例：Cron表达式「0 0 12 * * ?」
