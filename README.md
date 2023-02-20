@@ -2,7 +2,7 @@
 
 ## 🔥 功能
 
-[手动](#-本地手动运行)或使用[华为云函数](#-华为云函数-运行)实现自动完成网易云音乐合伙人任务。
+[手动](#-本地手动运行)或使用[华为云函数](#-华为云函数)实现自动完成网易云音乐合伙人任务。
 
 (可选) 使用[钉钉机器人](https://open.dingtalk.com/document/robots/custom-robot-access/)返回任务完成情况。
 
@@ -16,7 +16,7 @@
 2. 填写"setting.json"，[参数说明](#-参数说明)
 3. 直接执行"bot.py"
 
-### ☁ [华为云函数](https://console.huaweicloud.com/functiongraph)运行
+### ☁ [华为云函数](https://console.huaweicloud.com/functiongraph)
 
 ⚠ 请留意免费额度，以免产生不必要的支出！
 
